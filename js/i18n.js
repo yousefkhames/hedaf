@@ -61,7 +61,8 @@
       quickAdd: 'إيداع سريع',
       goalDoneMsg: 'مبروك! وصلت لهدفك',
       edit: 'تعديل',
-      close: 'إغلاق'
+      close: 'إغلاق',
+      withdrawClamped: 'السحب اتخصم لحد الرصيد بس'
     },
     en: {
       dir: 'ltr',
@@ -122,7 +123,8 @@
       quickAdd: 'Quick deposit',
       goalDoneMsg: 'Congrats! Goal reached',
       edit: 'Edit',
-      close: 'Close'
+      close: 'Close',
+      withdrawClamped: 'Withdrawal capped at the saved balance'
     }
   };
   root.HedafI18N = {

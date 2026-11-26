@@ -99,8 +99,10 @@
 <div class="modal" id="txModal" role="dialog" aria-modal="true">
   <div class="sheet glass">
     <h2 id="txModalTitle"></h2>
+    <p id="txRemaining" class="muted" style="font-size:.85rem"></p>
     <label class="lbl" id="lblAmount" for="txAmount"></label>
     <input id="txAmount" type="number" min="0" step="any" inputmode="decimal">
+    <div id="txChips" class="chips"></div>
     <label class="lbl" id="lblNote" for="txNote"></label>
     <input id="txNote" type="text" maxlength="140">
     <div class="row">

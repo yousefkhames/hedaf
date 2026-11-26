@@ -232,16 +232,33 @@
 
   /* ---------- transaction modal ---------- */
   var txSign = 1;
+  var CHIP_AMOUNTS = [100, 500, 1000, 5000];
   function openTxModal(goalId, sign) {
     txGoalId = goalId; txSign = sign;
     var g = state.goals.find(function (x) { return x.id === goalId; });
     $('#txModalTitle').textContent = (sign > 0 ? t('deposit') : t('withdraw')) + ' — ' + (g ? g.name : '');
+    $('#txRemaining').textContent = g ? t('remaining') + ': ' + fmt(Math.max(0, sign > 0 ? g.target - g.saved : g.saved)) : '';
     $('#lblAmount').textContent = t('amount');
     $('#lblNote').textContent = t('note');
     $('#txAmount').value = '';
     $('#txNote').value = '';
     $('#txSave').textContent = t('save');
     $('#txCancel').textContent = t('cancel');
+    var chips = $('#txChips');
+    chips.innerHTML = '';
+    CHIP_AMOUNTS.forEach(function (v) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'chip';
+      b.textContent = (sign > 0 ? '+' : '−') + v.toLocaleString(lang() === 'ar' ? 'ar-EG' : 'en-US');
+      b.addEventListener('click', function () {
+        var cur = Number($('#txAmount').value) || 0;
+        $('#txAmount').value = C.round2(cur + v);
+        $('#txAmount').classList.remove('err');
+        $('#txAmount').focus();
+      });
+      chips.appendChild(b);
+    });
     showModal('#txModal');
     setTimeout(function () { $('#txAmount').focus(); }, 50);
   }
@@ -251,9 +268,11 @@
     var g = state.goals.find(function (x) { return x.id === txGoalId; });
     if (!g) return;
     var wasDone = C.progress(g) >= 1;
+    var clamped = txSign < 0 && amount > g.saved;
     C.applyTx(state, C.makeTx(txGoalId, txSign * amount, C.todayISO(), $('#txNote').value.trim()));
     hideModal('#txModal');
     render();
+    if (clamped) toast(t('withdrawClamped'), false);
     if (!wasDone && C.progress(g) >= 1) confetti();
   }
 

@@ -161,6 +161,11 @@ main { max-width: 980px; margin: 0 auto; padding: 14px 18px; display: flex; flex
 .sheet input.err { border-color: var(--red); }
 .row { display: flex; gap: 10px; margin-top: 12px; }
 .row .btn { flex: 1; padding: 12px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.chip { font: inherit; font-weight: 700; font-size: .82rem; cursor: pointer;
+  background: rgba(45,212,191,.10); color: var(--teal); border: 1px solid rgba(45,212,191,.3);
+  border-radius: 999px; padding: 6px 13px; }
+.chip:hover { background: rgba(45,212,191,.2); }
 .icon-pick { display: flex; flex-wrap: wrap; gap: 8px; }
 .icon-opt { font-size: 1.5rem; background: rgba(255,255,255,.05); border: 1.5px solid transparent; border-radius: 12px;
   padding: 6px 10px; cursor: pointer; }
