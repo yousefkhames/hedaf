@@ -26,6 +26,15 @@
   <img src="screenshots/mobile.png" alt="Hedaf on a phone" width="260">
 </p>
 
+## Screenshots
+
+Captured from the live site (https://yousefkhames.github.io/hedaf/).
+
+<p>
+  <img src="docs/screenshots/live-desktop.png" alt="hedaf desktop view" width="640">
+  <img src="docs/screenshots/live-mobile.png" alt="hedaf mobile view" width="200">
+</p>
+
 ## Why
 
 Big goals feel vague. "I want a car someday" never moves anyone — "8,250 EGP every week
