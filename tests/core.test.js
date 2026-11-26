@@ -120,7 +120,21 @@ test('summarize aggregates the dashboard numbers', () => {
   assert.equal(s.totalSaved, 16000);
   assert.equal(s.done, 1);
   assert.equal(s.active, 2);
-  assert.equal(s.perWeek, C.round2(24000 / 14)); // only deadline goals count
+  // deadline goal: 24000/14; no-deadline goal: 4000/12 spread; done goal: 0
+  assert.equal(s.perWeek, C.round2(24000 / 14) + C.round2(4000 / 12));
+});
+
+test('effectivePerWeek agrees with planSchedule for no-deadline goals', () => {
+  const g = goal({ deadline: null });
+  const perWeek = C.effectivePerWeek(g, NOW);
+  const rows = C.planSchedule(g, NOW, 12);
+  assert.equal(perWeek, rows[0].deposit);
+  assert.equal(perWeek, C.round2(24000 / 12));
+});
+
+test('effectivePerWeek returns 0 for done goals and deadline need otherwise', () => {
+  assert.equal(C.effectivePerWeek(goal({ saved: 30000 }), NOW), 0);
+  assert.equal(C.effectivePerWeek(goal(), NOW), C.round2(24000 / 14));
 });
 
 test('serialize/deserialize round-trips state', () => {

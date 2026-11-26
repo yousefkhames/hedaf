@@ -142,6 +142,17 @@
     return 'behind';
   }
 
+  // Single source for "what this goal costs per week": the deadline-based
+  // need when there is one, otherwise the remaining spread over the
+  // planning horizon (12 weeks) so dashboard and chart always agree.
+  var PLAN_HORIZON_WEEKS = 12;
+  function effectivePerWeek(goal, now) {
+    var need = weeklyNeed(goal, now);
+    if (need.done) return 0;
+    if (need.perWeek != null) return need.perWeek;
+    return round2(need.remaining / PLAN_HORIZON_WEEKS);
+  }
+
   /* ---------- plan table for the next N weeks ---------- */
 
   // Builds a week-by-week plan: cumulative target per week for one goal.
@@ -152,8 +163,8 @@
     if (need.done) return rows;
     var perWeek = need.perWeek;
     if (perWeek == null) {
-      // no deadline: spread remaining evenly across the visible horizon
-      perWeek = round2(need.remaining / n);
+      // no deadline: spread remaining evenly across the planning horizon
+      perWeek = round2(need.remaining / PLAN_HORIZON_WEEKS);
     }
     var start = toDateOnly(now || new Date()).getTime();
     for (var i = 0; i < n; i++) {
@@ -189,7 +200,7 @@
       if (need.done) doneCount++;
       else {
         active++;
-        if (need.perWeek != null) totalPerWeek += need.perWeek;
+        totalPerWeek += effectivePerWeek(g, now);
       }
     });
     return {
@@ -276,6 +287,8 @@
     round2: round2,
     clamp: clamp,
     todayISO: todayISO,
+    PLAN_HORIZON_WEEKS: PLAN_HORIZON_WEEKS,
+    effectivePerWeek: effectivePerWeek,
     makeGoal: makeGoal,
     makeTx: makeTx,
     progress: progress,
