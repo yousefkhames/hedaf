@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>هدف — ادّخر لهدفك، أسبوع بأسبوع</title>
+<meta name="description" content="Hedaf — savings goals visualizer with a weekly plan. Phone, car, Hajj: set the target, track deposits, see the week-by-week path. Arabic & English, works offline, data stays in your browser.">
+<link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Sora:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<canvas id="confetti"></canvas>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="brand">
+      <img src="assets/logo.svg" alt="Hedaf logo" class="logo">
+      <div>
+        <h1 id="appName">هدف</h1>
+        <p id="tagline" class="tagline"></p>
+      </div>
+    </div>
+    <div class="hero-actions">
+      <button id="langBtn" class="btn ghost">English</button>
+      <button id="exportBtn" class="btn ghost"></button>
+      <button id="importBtn" class="btn ghost"></button>
+      <input type="file" id="importFile" accept="application/json,.json" hidden>
+    </div>
+  </div>
+  <div class="hero-inner sub">
+    <span id="localNote" class="local-note"></span>
+    <label class="cur"><span id="lblCur" hidden></span>💱
+      <input id="currencyInput" maxlength="6" value="EGP" aria-label="currency">
+    </label>
+  </div>
+</header>
+
+<main>
+  <section class="summary glass">
+    <div class="ring-wrap" id="totalRing"></div>
+    <div class="summary-txt">
+      <p id="totalSavedTxt" class="total-line"></p>
+      <div class="stats">
+        <div class="stat"><b id="statActive">0</b><span id="lblActive"></span></div>
+        <div class="stat"><b id="statDone">0</b><span id="lblDone"></span></div>
+      </div>
+      <div class="perweek">
+        <span id="lblPerWeek"></span>
+        <strong id="perWeekTxt"></strong>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-head">
+    <button id="addGoalBtn" class="btn gold big"></button>
+  </div>
+
+  <section id="goals" class="grid"></section>
+
+  <section class="glass plan">
+    <h2 id="planTitle"></h2>
+    <div id="planWrap"></div>
+  </section>
+</main>
+
+<footer>
+  <p>Hedaf · <span id="footNote">static demo — data lives in your browser (localStorage)</span></p>
+</footer>
+
+<!-- Goal modal -->
+<div class="modal" id="goalModal" role="dialog" aria-modal="true">
+  <div class="sheet glass">
+    <h2 id="goalModalTitle"></h2>
+    <label id="lblIcon" class="lbl"></label>
+    <div id="iconPick" class="icon-pick"></div>
+    <label class="lbl" id="lblName" for="fName"></label>
+    <input id="fName" type="text" maxlength="60">
+    <label class="lbl" id="lblTarget" for="fTarget"></label>
+    <input id="fTarget" type="number" min="1" step="any" inputmode="decimal">
+    <label class="lbl" id="lblSaved" for="fSaved"></label>
+    <input id="fSaved" type="number" min="0" step="any" inputmode="decimal">
+    <label class="lbl" id="lblDeadline" for="fDeadline"></label>
+    <input id="fDeadline" type="date">
+    <div class="row">
+      <button id="goalSave" class="btn gold"></button>
+      <button id="goalCancel" class="btn ghost"></button>
+    </div>
+  </div>
+</div>
+
+<!-- Transaction modal -->
+<div class="modal" id="txModal" role="dialog" aria-modal="true">
+  <div class="sheet glass">
+    <h2 id="txModalTitle"></h2>
+    <label class="lbl" id="lblAmount" for="txAmount"></label>
+    <input id="txAmount" type="number" min="0" step="any" inputmode="decimal">
+    <label class="lbl" id="lblNote" for="txNote"></label>
+    <input id="txNote" type="text" maxlength="140">
+    <div class="row">
+      <button id="txSave" class="btn gold"></button>
+      <button id="txCancel" class="btn ghost"></button>
+    </div>
+  </div>
+</div>
+
+<!-- History modal -->
+<div class="modal" id="histModal" role="dialog" aria-modal="true">
+  <div class="sheet glass">
+    <h2 id="histModalTitle"></h2>
+    <div id="histBody" class="hist"></div>
+    <div class="row"><button id="histClose" class="btn ghost"></button></div>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script src="js/core.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

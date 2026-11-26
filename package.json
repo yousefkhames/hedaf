@@ -1,0 +1,10 @@
+{
+  "name": "hedaf",
+  "version": "1.0.0",
+  "description": "Hedaf — savings goals visualizer with a weekly plan (static, bilingual AR/EN).",
+  "private": true,
+  "scripts": {
+    "test": "node --test tests/core.test.js"
+  },
+  "license": "MIT"
+}
