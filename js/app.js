@@ -80,7 +80,7 @@
   function renderSummary() {
     var sum = C.summarize(state.goals, null, new Date());
     var pctTxt = Math.round(sum.overall * 100) + '%';
-    $('#totalRing').innerHTML = ringSVG(sum.overall, 132, 11, 'url(#gradGold)') +
+    $('#totalRing').innerHTML = ringSVG(sum.overall, 132, 11, sum.overall >= 1 ? '#34d399' : '#f2b33d') +
       '<div class="ring-center"><strong>' + pctTxt + '</strong><span>' + esc(t('totalSaved')) + '</span></div>';
     $('#totalSavedTxt').innerHTML = '<strong>' + fmt(sum.totalSaved) + '</strong> ' + esc(t('ofTarget')) + ' ' + fmt(sum.totalTarget);
     $('#perWeekTxt').textContent = fmt(sum.perWeek) + ' ' + t('perWeek');
