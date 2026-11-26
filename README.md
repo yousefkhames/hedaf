@@ -56,10 +56,16 @@ DOM-free module that runs in the browser and in Node — which is how it's teste
 
 ```bash
 npm test          # 23 unit tests (node:test) for the planning engine
+npm i --no-save puppeteer-core
+node tests/e2e.mjs http://localhost:8000/      # 15-check click-through in headless Chrome (Arabic, English, deposit, withdraw, history, reload)
+node tests/offline.mjs http://localhost:8000/ '#goals'   # service worker, manifest, icons, renders with the network off
 ```
+
+Fonts (Tajawal and Sora, SIL OFL) are bundled in `assets/fonts`, so the app makes no external requests and looks the same offline. It can be installed to the home screen (manifest and icons).
 
 ## Honest limits
 
+- **Offline** works after the first visit: the service worker caches the app files and fonts. Clearing site data removes the cache and your goals.
 - **Demo hosting.** GitHub Pages serves static files only. There is no backend, no accounts, no sync.
 - **Per-browser data.** Goals are stored in this browser's `localStorage`. Clearing site data or switching browsers/devices starts fresh — use the JSON export for backups.
 - **No real money integration.** Hedaf tracks numbers you enter; it does not connect to a bank or wallet.
@@ -75,6 +81,8 @@ js/i18n.js          Arabic/English string packs
 js/app.js           DOM rendering + localStorage persistence
 tests/core.test.js  node:test suite for the engine
 assets/logo.svg     logo
+assets/fonts/       bundled Tajawal and Sora (woff2)
+manifest.webmanifest, sw.js   installable and offline
 screenshots/        real screenshots of the live app
 ```
 
