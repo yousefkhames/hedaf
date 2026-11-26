@@ -123,7 +123,7 @@
       '<button class="btn ghost" data-act="withdraw">− ' + esc(t('withdraw')) + '</button>' +
       '<button class="btn ghost" data-act="history">🧾 ' + esc(t('history')) + '</button>' +
       '<button class="btn ghost" data-act="edit">✎ ' + esc(t('edit')) + '</button>' +
-      '<button class="btn danger" data-act="delete">🗑</button>' +
+      '<button class="btn danger" data-act="delete" aria-label="' + esc(t('delete')) + '">🗑</button>' +
       '</div></article>';
     return html;
   }
@@ -373,6 +373,17 @@
     });
     ['#fName', '#fTarget', '#txAmount'].forEach(function (sel) {
       $(sel).addEventListener('input', function () { $(sel).classList.remove('err'); });
+    });
+    // keyboard: Enter saves the open modal, Esc closes any modal
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.modal.open').forEach(function (m) { m.classList.remove('open'); });
+        return;
+      }
+      if (e.key === 'Enter' && !e.shiftKey) {
+        if ($('#goalModal').classList.contains('open') && e.target.closest('#goalModal')) { e.preventDefault(); saveGoalFromModal(); }
+        else if ($('#txModal').classList.contains('open') && e.target.closest('#txModal')) { e.preventDefault(); saveTxFromModal(); }
+      }
     });
     render();
   }
