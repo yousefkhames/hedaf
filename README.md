@@ -98,3 +98,10 @@ screenshots/        real screenshots of the live app
 ## License
 
 [MIT](LICENSE) © 2026 Yousef Khames
+
+
+## Demo / portfolio project
+
+Static GitHub Pages site. Data stays in your browser. Sample data is fictional and results are not professional, legal, medical or financial advice.
+
+By Yousef Khames · من تطوير يوسف خميس
